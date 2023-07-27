@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour {
     
     [SerializeField] float moveSpeed = 4f;
     [SerializeField] float turnSpeed = 15;
+    private bool isWalking;
 
     private void Update() {
         Vector2 inputVector = Vector2.zero;
@@ -25,8 +26,15 @@ public class PlayerController : MonoBehaviour {
         var moveVector = new Vector3(inputVector.x, 0, inputVector.y);
 
         if (moveVector != Vector3.zero) {
+            isWalking = true;
             transform.position += moveVector * moveSpeed * Time.deltaTime;
             transform.forward = Vector3.Slerp(transform.forward, moveVector, turnSpeed * Time.deltaTime);
+        } else {
+            isWalking = false;
         }
+    }
+
+    public bool IsWalking() {
+        return isWalking;
     }
 }
