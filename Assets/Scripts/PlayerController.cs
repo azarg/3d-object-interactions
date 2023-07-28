@@ -4,25 +4,13 @@ public class PlayerController : MonoBehaviour {
     
     [SerializeField] float moveSpeed = 4f;
     [SerializeField] float turnSpeed = 15;
+    [SerializeField] InputManager inputManager;
+
     private bool isWalking;
 
     private void Update() {
-        Vector2 inputVector = Vector2.zero;
+        Vector2 inputVector = inputManager.GetMovementVectorNormalized();
 
-        if (Input.GetKey(KeyCode.W)) {
-            inputVector.y += 1;
-        } 
-        if (Input.GetKey(KeyCode.S)) {
-            inputVector.y -= 1;
-        } 
-        if (Input.GetKey(KeyCode.D)) {
-            inputVector.x += 1;
-        } 
-        if (Input.GetKey(KeyCode.A)) { 
-            inputVector.x -= 1;
-        }
-
-        inputVector = inputVector.normalized;
         var moveVector = new Vector3(inputVector.x, 0, inputVector.y);
 
         if (moveVector != Vector3.zero) {
