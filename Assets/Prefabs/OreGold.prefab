@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8307322894755980581}
   - component: {fileID: 8307322894757079013}
   - component: {fileID: 8307322894754887974}
+  - component: {fileID: -8019225510332240485}
   m_Layer: 0
   m_Name: OreGold
   m_TagString: Untagged
@@ -98,3 +99,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e84448dec28533c44a6851b17cbf3d93, type: 2}
+--- !u!114 &-8019225510332240485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307322894754887973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd844bd0c4788754bbdb4aa040fcdb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

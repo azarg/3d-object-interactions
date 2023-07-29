@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1068553519890591419}
   - component: {fileID: 1068553519889591419}
   - component: {fileID: 1068553519891591866}
+  - component: {fileID: -2680630593124134447}
   m_Layer: 0
   m_Name: OreCopper
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d6ed12550f40a6c49ba8b51d23932d9c, type: 2}
+--- !u!114 &-2680630593124134447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068553519891591867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd844bd0c4788754bbdb4aa040fcdb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oreType: 1

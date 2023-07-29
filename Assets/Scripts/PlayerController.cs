@@ -14,21 +14,29 @@ public class PlayerController : MonoBehaviour {
         playerCollider = GetComponent<CapsuleCollider>();
     }
 
+    private void Start() {
+        inputManager.OnInteractAction += InputManager_OnInteractAction;
+    }
+
+    private void InputManager_OnInteractAction(object sender, System.EventArgs e) {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionDistance)) {
+            if (hitInfo.transform.TryGetComponent<Ore>(out Ore ore)) {
+                ore.Interact();
+            }
+        }
+        else {
+            Debug.Log("Nothing to interact with");
+        }
+    }
+
     private void Update() {
         Vector2 inputVector = inputManager.GetMovementVectorNormalized();
         HandleMovementAnimation(inputVector);
         HandleMovement(inputVector);
-        HandleInteraction();
     }
 
     public bool IsWalking() {
         return walkingAnimationEnabled;
-    }
-
-    private void HandleInteraction() {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionDistance)) {
-            //Debug.Log(hitInfo);
-        };
     }
 
     private void HandleMovementAnimation(Vector2 inputVector) {
