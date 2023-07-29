@@ -7,17 +7,28 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] InputManager inputManager;
 
     private bool walkingAnimationEnabled;
-    private readonly float playerHeight = 2.8f;
-    private readonly float playerRadius = 0.5f;
+    private readonly float interactionDistance = 1f;
+    private CapsuleCollider playerCollider;
+    
+    private void Awake() {
+        playerCollider = GetComponent<CapsuleCollider>();
+    }
 
     private void Update() {
         Vector2 inputVector = inputManager.GetMovementVectorNormalized();
         HandleMovementAnimation(inputVector);
         HandleMovement(inputVector);
+        HandleInteraction();
     }
 
     public bool IsWalking() {
         return walkingAnimationEnabled;
+    }
+
+    private void HandleInteraction() {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionDistance)) {
+            //Debug.Log(hitInfo);
+        };
     }
 
     private void HandleMovementAnimation(Vector2 inputVector) {
@@ -57,6 +68,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool CanMove(Vector3 moveDirection, float maxDistance) {
-        return !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirection, maxDistance);
+        var bottom = transform.position + playerCollider.center - Vector3.up * playerCollider.height / 2;
+        var top = transform.position + playerCollider.center + Vector3.up * playerCollider.height / 2;
+        var hit = Physics.CapsuleCast(bottom, top, playerCollider.radius, moveDirection, maxDistance);
+        return !hit;
     }
 }
