@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour {
     private bool walkingAnimationEnabled;
     private readonly float interactionDistance = 1f;
     private CapsuleCollider playerCollider;
-    
+
+    public bool IsWalking() {
+        return walkingAnimationEnabled;
+    }
+
     private void Awake() {
         playerCollider = GetComponent<CapsuleCollider>();
     }
@@ -18,25 +22,32 @@ public class PlayerController : MonoBehaviour {
         inputManager.OnInteractAction += InputManager_OnInteractAction;
     }
 
+    private void Update() {
+        Vector2 inputVector = inputManager.GetMovementVectorNormalized();
+        HandleMovementAnimation(inputVector);
+        HandleMovement(inputVector);
+        if(FindInteractable(out IInteractable interactable)){
+            interactable.DisplayInteractionUI();
+        }
+    }
+
     private void InputManager_OnInteractAction(object sender, System.EventArgs e) {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionDistance)) {
-            if (hitInfo.transform.TryGetComponent<Ore>(out Ore ore)) {
-                ore.Interact();
-            }
+        if (FindInteractable(out IInteractable interactable)) {
+            interactable.Interact();
         }
         else {
             Debug.Log("Nothing to interact with");
         }
     }
 
-    private void Update() {
-        Vector2 inputVector = inputManager.GetMovementVectorNormalized();
-        HandleMovementAnimation(inputVector);
-        HandleMovement(inputVector);
-    }
-
-    public bool IsWalking() {
-        return walkingAnimationEnabled;
+    private bool FindInteractable(out IInteractable interactable) {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionDistance)) {
+            if (hitInfo.transform.TryGetComponent(out interactable)) {
+                return true;
+            }
+        }
+        interactable = null;
+        return false;
     }
 
     private void HandleMovementAnimation(Vector2 inputVector) {
