@@ -38,12 +38,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void InputManager_OnInteractAction(object sender, System.EventArgs e) {
-        if (FindInteractable(out IInteractable interactable)) {
-            interactable.Interact();
-        }
-        else {
-            Debug.Log("Nothing to interact with");
-        }
+        currentInteractable?.Interact();
     }
 
     private bool FindInteractable(out IInteractable interactable) {
