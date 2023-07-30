@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     private bool walkingAnimationEnabled;
     private readonly float interactionDistance = 1f;
     private CapsuleCollider playerCollider;
+    private IInteractable currentInteractable;
 
     public bool IsWalking() {
         return walkingAnimationEnabled;
@@ -28,6 +29,11 @@ public class PlayerController : MonoBehaviour {
         HandleMovement(inputVector);
         if(FindInteractable(out IInteractable interactable)){
             interactable.DisplayInteractionUI();
+            currentInteractable = interactable;
+        }
+        else {
+            currentInteractable?.HideInteractionUI();
+            currentInteractable = null;
         }
     }
 
